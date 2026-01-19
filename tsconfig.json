@@ -18,8 +18,9 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",              // ✅ Add this
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"]            // ✅ Import alias
     }
   },
   "include": [
