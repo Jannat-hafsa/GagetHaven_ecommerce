@@ -1,3 +1,8 @@
+"use client";
+
+import { useCart } from "@/app/context/CartContext";
+import { useWishlist } from "@/app/context/WishlistContext";
+
 interface Product {
   id: number;
   title: string;
@@ -11,23 +16,37 @@ interface Props {
 }
 
 export default function ProductCard({ product }: Props) {
+  const { addToCart } = useCart();
+  const { addToWishlist } = useWishlist();
+
   return (
-    <div className="bg-white border border-gray-100 shadow-sm rounded-xl p-4 hover:shadow-xl transition-shadow duration-300">
-      <div className="w-full h-48 relative overflow-hidden rounded-lg mb-4 bg-gray-50">
-        <img
-          src={product.image}
-          alt={product.title}
-          className="w-full h-full object-contain hover:scale-110 transition-transform duration-300"
-        />
+    <div className="bg-white border shadow-sm rounded-xl p-4">
+      <img
+        src={product.image}
+        alt={product.title}
+        className="w-full h-40 object-contain"
+      />
+
+      <span className="text-xs text-blue-500">{product.category}</span>
+      <h2 className="font-bold">{product.title}</h2>
+      <p className="text-lg font-bold">${product.price}</p>
+
+      <div className="flex gap-2 mt-4">
+        <button
+          onClick={() => addToCart(product)}
+          className="flex-1 bg-blue-600 text-white py-2 rounded"
+        >
+          Add to Cart
+        </button>
+        <button
+          onClick={() => addToWishlist(product)}
+          className="flex-1 bg-blue-600 text-white py-2 rounded"
+        >
+          Wishlist
+        </button>
+
+     
       </div>
-      <span className="text-xs font-medium text-blue-500 uppercase tracking-wider">
-        {product.category}
-      </span>
-      <h2 className="text-lg font-bold text-gray-800 mt-1 truncate">{product.title}</h2>
-      <p className="text-xl font-black text-gray-900 mt-2">${product.price}</p>
-      <button className="mt-4 w-full bg-blue-600 text-white py-2.5 rounded-lg font-semibold hover:bg-blue-700 active:scale-95 transition-all">
-        Add to Cart
-      </button>
     </div>
   );
 }

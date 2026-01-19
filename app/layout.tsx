@@ -1,7 +1,9 @@
 import Navbar from "@/app/component/Navbar";
 import Footer from "@/app/component/Footer";
+import Hero from "@/app/component/Hero";
 import "./globals.css";
-import Hero from "@/app/component/Hero"; 
+import { CartProvider } from "@/app/context/CartContext";
+import { WishlistProvider } from "@/app/context/WishlistContext";
 
 export const metadata = {
   title: "GadgetHeaven - Buy Gadgets Online",
@@ -19,15 +21,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-gray-50">
-        {/* Navbar */}
-        <Navbar />
-   <Hero />
-       
-        {/* Page content */}
-        <main className="min-h-screen">{children}</main>
+        <CartProvider>
+          <WishlistProvider>
+            {/* Navbar */}
+            <Navbar />
 
-        {/* Footer */}
-        <Footer />
+            {/* Hero */}
+            <Hero />
+
+            {/* Main Content */}
+            <main className="min-h-screen">{children}</main>
+
+            {/* Footer */}
+            <Footer />
+          </WishlistProvider>
+        </CartProvider>
       </body>
     </html>
   );
